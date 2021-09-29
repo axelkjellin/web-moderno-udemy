@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>Eventos #01</title>
+    <link rel='stylesheet' href='css/estilo.css'>
+    <script src='js/jquery.js'></script>
+    <style>
+        input {
+            font-size: 2em;
+        }
+    </style>
+</head>
+
+<body class='conteudo exercicio'>
+    <h1>Eventos #01</h1>
+    <div id='posicao'></div>
+    <div id='cliques'>Cliques: 0</div>
+    <button id='cliques2'>Cliques: 0</button>
+    <input type="text" placeholder="Cor de Background">
+
+    <script>
+        function mostrarPosicaoMouse(e) {
+            $('#posicao').html(`x: ${e.clientX} y:${e.clientY}`)
+        }
+        //faz a div posição mostrar onde o mouse esta na tela
+        $('body').on('mousemove', mostrarPosicaoMouse)
+
+        //ao passar por cima da div posição para de ver onde o mouse esta
+        $('#posicao').mouseover(e => {
+            $('body').off('mousemove', mostrarPosicaoMouse)
+        })
+        //ao tirar o mouse da posicao da div volta a conta onde o mouse esta
+        $('#posicao').mouseleave(e => {
+            // $('body').on('mousemove', mostrarPosicaoMouse)
+            //mesma coisa do de cima
+            $('body').mousemove(mostrarPosicaoMouse)
+        })
+
+        let cliques = 0
+        $('body').click(e => {
+            $('#cliques').html(`Cliques: ${++cliques}`)
+        })
+
+        $('#cliques2').css({'width': '90px', 'height': '60px', 'margin': '25px', 'background-color': 'pink'})
+        let cliquesPorDois = 1
+        $('#cliques2').click(e => {
+            $('#cliques2').html(`Cliques: ${cliquesPorDois = 2 * cliquesPorDois}`)
+        })
+
+        const backgroundOriginal = $('body').css('background-color')
+
+        $('input').keyup(function(e) {
+            // console.log(e.target)
+            // console.log($(this).css('background-color', 'red'))
+            const valor = $(this).val()
+            if(valor.match(/#[\da-fA-F]{3,6}/)){
+                $('body').css('background-color', valor)
+            } else {
+                $('body').css('background-color', backgroundOriginal)
+            }
+        })
+    </script>
+</body>
