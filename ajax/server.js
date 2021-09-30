@@ -28,5 +28,23 @@ app.post('/upload', (req, res) => {
         res.end('Concluído com sucesso')
     })
 })
+
+app.post('/formulario', (req, res) => {
+    res.send({
+        ...req.body,
+        id: 7
+    })
+})
+
+app.get('/parOuImpar' /**\/:numero*/, (req, res) => {
+    //formas de receber dados do front-end
+    //req.body
+    //req.query pega depois do ? ->  localhost:8080/parOuImpar?numero=152
+    //req.params // /:numero pega depois da url -> localhost:8080/parOuImpar/152
+    const par = parseInt(req.query.numero) % 2 === 0
+    res.send({
+        resultado: par ? 'par' : 'impar'
+    })
+})
  
 app.listen(8080, () => console.log('Executando...'))

@@ -70,3 +70,7 @@ li {
     color: greenyellow;
     font-weight: bold;
 }
+
+#get, #post {
+    font-size: 10px;
+}

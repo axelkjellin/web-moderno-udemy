@@ -31,15 +31,19 @@
        }
 
        ajax({
-           url:'dados/estados.xml',
-           metodo: 'get',
-           sucesso(resposta) {
-               const estados = resposta.getElementsByTagName('estado')
-               const itens = Array.from(estados).reduce(
-                   (html, estado) => html + `<li>${estado.attributes.nome.value}}</li>`
-               )
-               itens.
-           }
+            url:'dados/estados.xml',
+            metodo: 'get',
+            sucesso(resposta) {
+                const estados = resposta.getElementsByTagName('estado')
+                const itens = Array.from(estados).reduce(
+                    (html, estado) => html + `<li>${estado.attributes.nome.value}</li>`, ''
+                )
+                document.body.insertAdjacentHTML('beforeend', `<ul> ${itens} </ul>`)
+            },
+            error(e) {
+                const msg = document.createTextNode(`${e.codigo}: ${e.texto}`)
+                document.body.appendChild(msg)
+            }
        })
     </script>
 </body>
